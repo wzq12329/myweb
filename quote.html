@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quotes</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+        nav{background:#222;padding:16px;text-align:center}
+        nav a{color:#fff;margin:0 16px;text-decoration:none;font-size:18px}
+        nav a:hover{color:#42a5f5}
+        .container{width:90%;max-width:800px;margin:30px auto}
+        .popup{
+            position:fixed;
+            top:20px;
+            left:50%;
+            transform:translateX(-50%);
+            background:#fff;
+            box-shadow:0 4px 16px #0003;
+            padding:24px 32px;
+            border-radius:12px;
+            z-index:999;
+            display:none;
+            max-width:600px;
+        }
+        .popup.show{display:block;animation:pop 0.3s}
+        @keyframes pop{from{opacity:0;top:0}to{opacity:1;top:20px}}
+        .close{margin-top:12px;padding:6px 12px;cursor:pointer}
+        .quote-item{
+            border:1px solid #ddd;
+            padding:14px;
+            margin:10px 0;
+            border-radius:8px;
+            cursor:pointer;
+        }
+        .quote-item:hover{background:#f6f8ff}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="quote.html">Quotes</a>
+        <a href="project.html">Project</a>
+        <a href="game.html">Game</a>
+    </nav>
+
+    <div class="popup" id="pop">
+        <p id="pop-text"></p>
+        <button class="close" onclick="hidePop()">Close</button>
+    </div>
+
+    <div class="container">
+        <h2>Quotes (Click any quote to show a random one)</h2>
+        <div id="quoteList"></div>
+    </div>
+
+<script>
+const quotes = [
+    "The only way to do great work is to love what you do. — Steve Jobs",
+    "Life is what happens when you're busy making other plans. — John Lennon",
+    "The future belongs to those who believe in the beauty of their dreams. — Eleanor Roosevelt",
+    "In the middle of difficulty lies opportunity. — Albert Einstein",
+    "It does not matter how slowly you go as long as you do not stop. — Confucius",
+    "The best time to plant a tree was 20 years ago. The second best time is now. — Chinese Proverb",
+    "Success is not final, failure is not fatal: it is the courage to continue that counts. — Winston Churchill",
+    "Believe you can and you're halfway there. — Theodore Roosevelt",
+    "The only limit to our realization of tomorrow is our doubts of today. — Franklin D. Roosevelt",
+    "Do what you can, with what you have, where you are. — Theodore Roosevelt",
+    "Whether you think you can or you think you can't, you're right. — Henry Ford",
+    "The journey of a thousand miles begins with a single step. — Lao Tzu",
+    "Everything you've ever wanted is on the other side of fear. — George Addair",
+    "Hardships often prepare ordinary people for an extraordinary destiny. — C.S. Lewis",
+    "The greatest glory in living lies not in never falling, but in rising every time we fall. — Nelson Mandela"
+];
+
+const wrap = document.getElementById("quoteList");
+quotes.forEach((item,idx)=>{
+    const div = document.createElement("div");
+    div.className="quote-item";
+    div.innerText = `Quote ${idx+1}`;
+    div.onclick = showRandom;
+    wrap.appendChild(div);
+})
+
+function showRandom(){
+    const r = Math.floor(Math.random() * quotes.length);
+    document.getElementById("pop-text").innerText = quotes[r];
+    document.getElementById("pop").classList.add("show");
+}
+function hidePop(){
+    document.getElementById("pop").classList.remove("show");
+}
+</script>
+</body>
+</html>

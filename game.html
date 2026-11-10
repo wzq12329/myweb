@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+        nav{background:#222;padding:16px;text-align:center}
+        nav a{color:#fff;margin:0 16px;text-decoration:none;font-size:18px}
+        nav a:hover{color:#42a5f5}
+        .container{width:90%;max-width:600px;margin:40px auto;text-align:center}
+        input{padding:8px;width:160px;font-size:16px;margin:12px 0}
+        button{padding:8px 16px;font-size:16px;cursor:pointer}
+        #tip{margin-top:16px;font-size:18px;color:#222}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="quote.html">Quotes</a>
+        <a href="project.html">Project</a>
+        <a href="game.html">Game</a>
+    </nav>
+    <div class="container">
+        <h2>🎮 Guess the Number</h2>
+        <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+        <input type="number" id="numInput" min="1" max="100" placeholder="Enter a number">
+        <br>
+        <button onclick="check()">Submit Guess</button>
+        <button onclick="restart()">Restart</button>
+        <div id="tip"></div>
+    </div>
+
+<script>
+let answer = Math.floor(Math.random()*100)+1;
+let count = 0;
+const tip = document.getElementById("tip");
+
+function check(){
+    const val = Number(document.getElementById("numInput").value);
+    if(!val || val<1 || val>100){
+        tip.innerText="Please enter a number between 1 and 100";
+        return;
+    }
+    count++;
+    if(val < answer){
+        tip.innerText = `Attempt ${count}: Too low! Try a higher number.`;
+    }else if(val > answer){
+        tip.innerText = `Attempt ${count}: Too high! Try a lower number.`;
+    }else{
+        tip.innerText = `🎉 Congratulations! You got it! It took you ${count} tries.`;
+    }
+}
+function restart(){
+    answer = Math.floor(Math.random()*100)+1;
+    count=0;
+    tip.innerText="";
+    document.getElementById("numInput").value="";
+}
+</script>
+</body>
+</html>
